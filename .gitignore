@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.sites-runtime/
+
+tests/fixture.html
