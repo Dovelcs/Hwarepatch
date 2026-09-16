@@ -1,0 +1,4 @@
+Designator,Value,Footprint,数量
+"C1,C2",100nF,C0805,2
+R1,10k,R0603,1
+U1,MCU,QFN-32,1

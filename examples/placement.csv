@@ -1,0 +1,5 @@
+Designator,Device,Footprint,Mid X,Mid Y,Layer
+C1,CC0805,C0805,10mm,-10mm,T
+C2,CC0805,C0805,15mm,-10mm,T
+R1,RES,R0603,20mm,-15mm,B
+U1,MCU,QFN-32,15mm,-20mm,T

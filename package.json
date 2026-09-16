@@ -1,0 +1,1 @@
+{"name":"pcb-placement-local","private":true,"scripts":{"dev":"node preview.mjs"}}

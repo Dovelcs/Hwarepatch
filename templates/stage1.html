@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PCB 贴片辅助</title>
+<style>body{margin:0;background:#101c25;color:#dae5eb;font:16px system-ui}header{padding:20px;display:flex;gap:20px}button{padding:10px}svg{display:block;width:100vw;height:85vh;touch-action:none}rect{fill:#718eab;stroke:#d5e3eb;stroke-width:.1}text{fill:white;font:1px monospace}</style>
+<header>PCB 贴片辅助 · 第一阶段 <button id="fit">适应窗口</button><span id="count"></span></header><svg id="map" aria-label="PCB 元件坐标图"></svg>
+<script type="application/json" id="data">__PCB_DATA__</script><script>
+const data=JSON.parse(document.getElementById('data').textContent),svg=document.getElementById('map'),ns='http://www.w3.org/2000/svg';let view,drag;
+data.components.forEach(c=>{const r=document.createElementNS(ns,'rect');r.setAttribute('x',c.x-1);r.setAttribute('y',-c.y-.6);r.setAttribute('width',2);r.setAttribute('height',1.2);svg.append(r)});
+document.getElementById('count').textContent=data.components.length+' 个元件';
+function apply(){svg.setAttribute('viewBox',view.join(' '))}function fit(){const xs=data.components.map(c=>c.x),ys=data.components.map(c=>-c.y);view=[Math.min(...xs)-5,Math.min(...ys)-5,Math.max(...xs)-Math.min(...xs)+10,Math.max(...ys)-Math.min(...ys)+10];apply()}document.getElementById('fit').onclick=fit;svg.ondblclick=fit;svg.onwheel=e=>{e.preventDefault();const f=e.deltaY>0?1.15:1/1.15;view[0]+=view[2]*(1-f)/2;view[1]+=view[3]*(1-f)/2;view[2]*=f;view[3]*=f;apply()};svg.onpointerdown=e=>{drag=[e.clientX,e.clientY,...view];svg.setPointerCapture(e.pointerId)};svg.onpointermove=e=>{if(!drag)return;const scale=Math.max(view[2]/svg.clientWidth,view[3]/svg.clientHeight);view[0]=drag[2]-(e.clientX-drag[0])*scale;view[1]=drag[3]-(e.clientY-drag[1])*scale;apply()};svg.onpointerup=()=>drag=null;fit();
+</script></html>
